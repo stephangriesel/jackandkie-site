@@ -1,0 +1,11 @@
+{
+  "name_label": "Your name",
+  "email_label": "Your email",
+  "subject_label": "Subject",
+  "message_label": "Your message (optional)",
+  "submit_label": "Send",
+  "sending_label": "Sending…",
+  "success_heading": "Thank you.",
+  "success_text": "Your message has been sent. I'll be in touch soon.",
+  "error_text": "Something went wrong. Please try again, or get in touch via WhatsApp or email."
+}

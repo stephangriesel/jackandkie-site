@@ -1,0 +1,33 @@
+{
+  "email": "info@jackandkie.com",
+  "whatsapp": "+264814373078",
+  "socials": [
+    {
+      "label": "Facebook",
+      "icon": "facebook",
+      "url": "https://www.facebook.com/jackandkie"
+    },
+    {
+      "label": "Instagram",
+      "icon": "instagram",
+      "url": "https://www.instagram.com/jackandkie.photography/"
+    },
+    {
+      "label": "Instagram",
+      "icon": "instagram",
+      "url": "https://www.instagram.com/jack_and_kie/"
+    },
+    {
+      "label": "Pinterest",
+      "icon": "pinterest",
+      "url": "https://nl.pinterest.com/jack_and_kie/"
+    }
+  ],
+  "copyright": "All rights reserved.",
+  "quick_links_heading": "Quick Links",
+  "quick_links": [],
+  "follow_heading": "Follow",
+  "contact_heading": "Get in touch",
+  "email_label": "Email.",
+  "whatsapp_label": "WhatsApp."
+}

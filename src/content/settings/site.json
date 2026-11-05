@@ -1,0 +1,10 @@
+{
+  "title": "JackandKie – Namibian Wedding Photographer",
+  "description": "JackandKie, a Namibian wedding photographer. A place for the curious and the courageous.",
+  "logo": "/images/uploads/logo.png",
+  "logo_alt": "JackandKie",
+  "nav": {
+    "contact_label": "Contact.",
+    "contact_link": "#contact"
+  }
+}

@@ -1,7 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import home from '../content/home.json';
-const { hello, welcome, work, words, info, footer, nav, form, slider } = home;
+import general from '../content/settings/site.json';
+import sliderSettings from '../content/settings/slider.json';
+import formSettings from '../content/settings/form.json';
+import sliderContent from '../content/home/slider.json';
+import hello from '../content/home/hello.json';
+import welcome from '../content/home/welcome.json';
+import work from '../content/home/work.json';
+import words from '../content/home/words.json';
+import info from '../content/home/info.json';
+import footer from '../content/footer/footer.json';
+import formText from '../content/footer/form-text.json';
+const slider = { ...sliderSettings, ...sliderContent };
+const form = { ...formText, ...formSettings };
+const { nav } = general;
+const home = { ...general, hero: sliderContent.images };
 const wa = footer.whatsapp.replace(/\D/g, '');
 const slides = [...home.hero, home.hero[0]];
 const autoplay = Math.max(0, Number(slider.autoplay_seconds) || 0) * 1000;

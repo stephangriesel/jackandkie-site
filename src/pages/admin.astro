@@ -12,6 +12,15 @@
   </head>
   <body>
     <script is:inline src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"></script>
-    <!-- If DecapBridge gives you an extra script/login snippet, add it here. -->
+    <script is:inline>
+      // Local editing only: Decap's local backend shows a one-click "Login" button. Click it automatically.
+      if (['localhost', '127.0.0.1'].includes(location.hostname)) {
+        const t = setInterval(() => {
+          const b = [...document.querySelectorAll('button')].find((x) => /^\s*login\s*$/i.test(x.textContent));
+          if (b) { clearInterval(t); b.click(); }
+        }, 300);
+        setTimeout(() => clearInterval(t), 15000);
+      }
+    </script>
   </body>
 </html>
