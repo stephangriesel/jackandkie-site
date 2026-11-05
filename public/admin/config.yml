@@ -26,8 +26,8 @@ auth:
   last_name_claim: last_name
   avatar_url_claim: avatar_url
 
-# Better Decap + Bridge logo
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+# Logo shown on the CMS login screen (the site logo)
+logo_url: /images/uploads/logo.png
 
 # Add site links in Decap CMS (change to the real domain when it goes live)
 site_url: https://jackandkie.pages.dev
