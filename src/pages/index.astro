@@ -20,7 +20,7 @@ const slides = [...home.hero, home.hero[0]];
 const autoplay = Math.max(0, Number(slider.autoplay_seconds) || 0) * 1000;
 const transition = Math.max(0, Number(slider.transition_seconds ?? 0.8)); // first slide is cloned at the end for a seamless loop
 ---
-<Base title={home.title} description={home.description}>
+<Base title={home.title} description={home.description} image={general.social_image}>
   <header class="site">
     <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">
       <i class="fa-solid fa-bars"></i>

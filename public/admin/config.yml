@@ -165,6 +165,7 @@ collections:
           - { name: description, label: "Search description", widget: text, hint: "One or two sentences shown under the title in search results." }
           - { name: logo, label: "Logo", widget: image, hint: "Used in the header and footer." }
           - { name: logo_alt, label: "Logo description (alt text)", widget: string }
+          - { name: social_image, label: "Social sharing image", widget: image, hint: "Shown when the site is shared on WhatsApp, Facebook, etc. Best size: 1200 x 630." }
           - name: nav
             label: "Header menu link"
             widget: object
