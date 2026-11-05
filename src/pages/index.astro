@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import home from '../content/home.json';
+const { hello, welcome, work, words, info, footer, nav, form, slider } = home;
+const wa = footer.whatsapp.replace(/\D/g, '');
+const slides = [...home.hero, home.hero[0]];
+const autoplay = Math.max(0, Number(slider.autoplay_seconds) || 0) * 1000;
+const transition = Math.max(0, Number(slider.transition_seconds ?? 0.8)); // first slide is cloned at the end for a seamless loop
+---
+<Base title={home.title} description={home.description}>
+  <header class="site">
+    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <a class="logo" href="/"><img src={home.logo} alt={home.logo_alt} /></a>
+    <nav class="header-cta"><a class="contact" href={nav.contact_link}>{nav.contact_label}</a></nav>
+  </header>
+  <nav class="mobile-menu" hidden><a href={nav.contact_link}>{nav.contact_label}</a></nav>
+
+  <div class="slider-wrap">
+    <div class="slider" aria-roledescription="carousel" data-autoplay={autoplay} data-transition={transition}>
+      <div class="track">
+        {slides.map((s, i) => <div class="slide"><img src={s.image} alt={s.alt} loading={i === 0 ? 'eager' : 'lazy'} /></div>)}
+      </div>
+      <button class="arrow prev" type="button" aria-label="Previous slide">
+        <svg viewBox="0 0 26 25" width="26" height="25" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M25 12.5H1M12 1.5 1 12.5l11 11"/></svg>
+      </button>
+      <button class="arrow next" type="button" aria-label="Next slide">
+        <svg viewBox="0 0 26 25" width="26" height="25" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 12.5h24M14 1.5l11 11-11 11"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <section class="sec sec-hello">
+    <div class="col-left">
+      <span class="circle" aria-hidden="true"></span>
+      <h1>{hello.heading}</h1>
+    </div>
+    <div class="col-right"><p>{hello.text}</p></div>
+    <img class="abs" src={hello.image} alt={hello.image_alt} loading="lazy" />
+  </section>
+
+  <section class="sec sec-welcome" id="about">
+    <h2>{welcome.heading}</h2>
+    <img class="abs" src={welcome.image} alt={welcome.image_alt} loading="lazy" />
+    <div class="cta">
+      <p class="cta-text">{welcome.text}</p>
+      <a class="cta-btn" href={welcome.button_link}>{welcome.button_label}</a>
+    </div>
+  </section>
+
+  <section class="sec sec-work" id="work">
+    <h2>{work.heading}</h2>
+    <img class="abs" src={work.image} alt={work.image_alt} loading="lazy" />
+    <div class="cta">
+      <p class="cta-text">{work.text}</p>
+      <a class="cta-btn" href={work.button_link}>{work.button_label}</a>
+    </div>
+  </section>
+
+  <section class="sec sec-words">
+    <h2>{words.heading}</h2>
+    <div class="flow-wrap"><img class="flow" src={words.image} alt={words.image_alt} loading="lazy" /></div>
+    <div class="cta"><p class="cta-text">"{words.quote}"<br /><br />{words.author}</p></div>
+  </section>
+
+  <section class="sec sec-info">
+    <h2>{info.heading}</h2>
+    <div class="cta"><p class="cta-text">{info.text}</p></div>
+    <img class="abs" src={info.image} alt={info.image_alt} loading="lazy" />
+  </section>
+
+  <section class="form-wrap" id="contact">
+    <form id="contact-form" action={form.action} method="POST" data-sending={form.sending_label}>
+      <label>{form.name_label}<input type="text" name="Name" required /></label>
+      <label>{form.email_label}<input type="email" name="Email" required /></label>
+      <label>{form.subject_label}<input type="text" name="Subject" required /></label>
+      <label>{form.message_label}<textarea name="Message"></textarea></label>
+      <button class="submit" type="submit">{form.submit_label}</button>
+    </form>
+    <div class="form-thanks" role="status" aria-live="polite" hidden>
+      <h3>{form.success_heading}</h3>
+      <p>{form.success_text}</p>
+    </div>
+    <p class="form-error" role="alert" hidden>{form.error_text}</p>
+  </section>
+
+  <footer>
+    <div class="groups">
+      <div class="g"><a href="/"><img class="flogo" src={home.logo} alt={home.logo_alt} /></a></div>
+      <div class="g"><h6>{footer.quick_links_heading}</h6>{footer.quick_links.map((l) => <a class="flink" href={l.url}>{l.label}</a>)}</div>
+      <div class="g"><h6>{footer.follow_heading}</h6>
+        <div class="social">{footer.socials.map((s) => <a href={s.url} rel="noopener" aria-label={s.label}><i class={`fa-brands fa-${s.icon}`}></i></a>)}</div>
+      </div>
+      <div class="g"><h6>{footer.contact_heading}</h6>
+        <a class="flink" href={`mailto:${footer.email}?subject=Enquiry`}>{footer.email_label}</a>
+        <a class="flink" href={`https://wa.me/${footer.whatsapp}`} rel="noopener">{footer.whatsapp_label}</a>
+      </div>
+    </div>
+    <div class="copy"><span>©{new Date().getFullYear()}.</span> <span>{footer.copyright}</span></div>
+  </footer>
+
+  <a class="to-top" href="#" aria-label="Back to top" hidden><svg viewBox="0 0 18 14" width="18" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12 9 3l8 9"/></svg></a>
+
+  <script>
+    // Carousel
+    const track = document.querySelector<HTMLElement>('.track')!;
+    const total = track.children.length - 1; // last is the clone of the first
+    const speed = Number(document.querySelector<HTMLElement>('.slider')?.dataset.transition ?? 0.8);
+    let i = 0, busy = false;
+    const go = (n: number) => {
+      if (busy) return;
+      busy = true;
+      if (n < 0) { track.style.transition = 'none'; track.style.transform = `translateX(-${total * 100}%)`; void track.offsetWidth; n = total - 1; }
+      track.style.transition = `transform ${speed}s ease`;
+      track.style.transform = `translateX(-${n * 100}%)`;
+      i = n;
+      if (speed === 0) settle(); // no animation means no transitionend event
+    };
+    const settle = () => {
+      if (i >= total) { track.style.transition = 'none'; track.style.transform = 'translateX(0)'; i = 0; }
+      busy = false;
+    };
+    track.addEventListener('transitionend', settle);
+    document.querySelector('.next')?.addEventListener('click', () => go(i + 1));
+    document.querySelector('.prev')?.addEventListener('click', () => go(i - 1));
+    const delay = Number(document.querySelector<HTMLElement>('.slider')?.dataset.autoplay) || 0;
+    const start = () => (delay ? setInterval(() => go(i + 1), delay) : 0);
+    let timer = start();
+    document.querySelector('.slider')?.addEventListener('mouseenter', () => clearInterval(timer));
+    document.querySelector('.slider')?.addEventListener('mouseleave', () => { timer = start(); });
+
+    // Contact form: send in the background, then show the thank-you message in place
+    const formEl = document.querySelector<HTMLFormElement>('#contact-form');
+    if (formEl) {
+      const thanks = document.querySelector<HTMLElement>('.form-thanks')!;
+      const err = document.querySelector<HTMLElement>('.form-error')!;
+      const btn = formEl.querySelector<HTMLButtonElement>('button[type=submit]')!;
+      formEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!formEl.reportValidity()) return;
+        const label = btn.textContent;
+        btn.disabled = true; btn.textContent = formEl.dataset.sending ?? '…'; err.hidden = true;
+        try {
+          // no-cors: the request is delivered from any domain; the reply is opaque, so a resolved fetch means "sent".
+          await fetch(formEl.action, { method: 'POST', body: new FormData(formEl), mode: 'no-cors' });
+          formEl.hidden = true; thanks.hidden = false;
+          thanks.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        } catch {
+          err.hidden = false; btn.disabled = false; btn.textContent = label;
+        }
+      });
+    }
+
+    // Mobile menu
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle')!;
+    const menu = document.querySelector<HTMLElement>('.mobile-menu')!;
+    toggle.addEventListener('click', () => { menu.hidden = !menu.hidden; toggle.setAttribute('aria-expanded', String(!menu.hidden)); });
+    menu.addEventListener('click', () => { menu.hidden = true; });
+
+    // Back to top
+    const top = document.querySelector<HTMLElement>('.to-top')!;
+    const onScroll = () => { top.hidden = window.scrollY < 600; };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  </script>
+</Base>
