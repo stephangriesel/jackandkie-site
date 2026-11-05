@@ -27,7 +27,7 @@ auth:
   avatar_url_claim: avatar_url
 
 # Logo shown on the CMS login screen (the site logo)
-logo_url: /images/uploads/logo.png
+logo_url: /images/uploads/logo-transparent.png
 
 # Add site links in Decap CMS (change to the real domain when it goes live)
 site_url: https://jackandkie.pages.dev
